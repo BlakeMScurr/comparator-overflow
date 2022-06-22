@@ -42,7 +42,7 @@ npm i
 ```
 
 If your machine is setup properly this will output `Everything went okay, circom safe`.
-This shows that according to the `LessThan` comparator, `p-1 < 10`. Uncomment different lines to confirm `LessThan` works in the normal case, and find the flipping point.
+This shows that according to the `LessThan` comparator, `p-1 < 10`. Uncomment different lines of [main.circom](main.circom) to confirm `LessThan` works as decribed above, including verifying the flipping point.
 
 
 ## Fix
