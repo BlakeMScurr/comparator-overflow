@@ -47,34 +47,22 @@ This shows that according to the `LessThan` comparator, `p-1 < 10`. Uncomment di
 
 ## Fix
 
-The simplest solution is to use [CompConstant](https://github.com/iden3/circomlib/blob/master/circuits/compconstant.circom) to verify that both inputs are in the appropriate range:
+The simplest solution is to use [Num2Bits](https://github.com/iden3/circomlib/blob/master/circuits/bitify.circom#L25-L39) to verify that both inputs are in the appropriate range:
 ```js
 template someTemplate() {
     ...
-    component aInRange = Is252Bits();
+    component aInRange = Num2Bits(252);
     aInRange.in <== a;
-    component bInRange = Is252Bits();
+    component bInRange = Num2Bits(252);
     bInRange.in <== lower;
     component leq = LessEqThan(252);
     leq.in[0] <== a;
     leq.in[1] <== b;
     ...
 }
-
-template Is252Bits() {
-    signal input in;
-
-    component bits = Num2Bits(254);
-    bits.in <== in;
-
-    component compare = CompConstant(2**252);
-    for (var i=0; i<254; i++) {
-        compare.in[i] <== bits.out[i];
-    }
-
-    compare.out === 0;
-}
 ```
+
+Here `Num2Bits` decomposes its input into 252 bits, then reconstructs the number as a sum of the bits, and puts a hard constraint making sure the reconstruction is equal to the input. If there are any bits in a location higher than 252 this constraint will fail.
 
 ## Why does this happen?
 
