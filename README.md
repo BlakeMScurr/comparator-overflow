@@ -30,7 +30,7 @@ lt.in[1] <== 10;
 lt.out === 1;
 ```
 
-In particular, this happens precisely when `lt.in[0] > p - 2^n + lt.in[1]`, does *not* correspond to negative numbers, nor, likely, anything relevant to any common use case.
+In particular, this happens precisely when `lt.in[0] > p - 2^n + lt.in[1]`, does *not* correspond to circom's standard definition of negative numbers, nor, likely, anything relevant to any common use case.
 Note that similar issues can happen when `lt.in[1]` is outside the range.
 
 ## Demonstration
